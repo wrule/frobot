@@ -9,5 +9,8 @@
   },
   "repository": "https://github.com/wrule/frobot.git",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
 }
