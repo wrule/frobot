@@ -9,6 +9,8 @@ async function main() {
   });
   const a = await binance.publicGetTime();
   console.log(a);
+  const ticker = await binance.fetchTicker('BTC/USDT');
+  console.log(ticker.close);
 }
 
 main();
