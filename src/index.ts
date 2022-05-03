@@ -27,28 +27,33 @@ async function main() {
   // console.log(result);
 
   async function loop_ticker() {
-    const ticker = await binance.fetchTicker('BTC/USDT');
-    console.log(
-      moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
-      ticker.close,
-      ticker.last,
-      moment(new Date(ticker.datetime)).format('YYYY-MM-DD HH:mm:ss'),
-      moment(new Date(ticker.timestamp)).format('YYYY-MM-DD HH:mm:ss'),
-    );
-    setTimeout(() => {
-      loop_ticker();
-    }, 1000);
-    fs.appendFileSync('log.csv', `${
-      moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
-    },${
-      ticker.close
-    },${
-      ticker.last
-    },${
-      moment(new Date(ticker.datetime)).format('YYYY-MM-DD HH:mm:ss')
-    },${
-      moment(new Date(ticker.timestamp)).format('YYYY-MM-DD HH:mm:ss')
-    }\n`);
+    try {
+      const ticker = await binance.fetchTicker('BTC/USDT');
+      console.log(
+        moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+        ticker.close,
+        ticker.last,
+        moment(new Date(ticker.datetime)).format('YYYY-MM-DD HH:mm:ss'),
+        moment(new Date(ticker.timestamp)).format('YYYY-MM-DD HH:mm:ss'),
+      );
+      fs.appendFileSync('log.csv', `${
+        moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
+      },${
+        ticker.close
+      },${
+        ticker.last
+      },${
+        moment(new Date(ticker.datetime)).format('YYYY-MM-DD HH:mm:ss')
+      },${
+        moment(new Date(ticker.timestamp)).format('YYYY-MM-DD HH:mm:ss')
+      }\n`);
+    } catch (e: any) {
+      fs.appendFileSync('log.csv', `${e.message}\n`);
+    } finally {
+      setTimeout(() => {
+        loop_ticker();
+      }, 1000);
+    }
   }
 
   loop_ticker();
