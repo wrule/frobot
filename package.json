@@ -12,6 +12,7 @@
   "private": false,
   "dependencies": {
     "axios": "^0.27.2",
-    "ccxt": "^1.81.17"
+    "ccxt": "^1.81.17",
+    "moment": "^2.29.3"
   }
 }
