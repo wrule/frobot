@@ -17,10 +17,12 @@ async function main() {
   //     console.log(key);
   //   }
   // }
-  const ticker = await binance.fetchTicker('BTC/USDT');
-  setInterval(() => {
-    console.log(ticker.close);
-  }, 1000);
+  // const ticker = await binance.fetchTicker('BTC/USDT');
+  // setInterval(() => {
+  //   console.log(ticker.close);
+  // }, 1000);
+  const result = await binance.fetchOHLCV('BTC/USDT', '1h', 1651550400000, 24);
+  console.log(result);
 }
 
 main();
