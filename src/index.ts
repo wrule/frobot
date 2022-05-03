@@ -19,13 +19,6 @@ async function main() {
   binance.markets = await binance.loadMarkets(true);
   const k = await binance.fetchBalance();
   console.log(k);
-  // for (let symbol in binance.markets) {
-  //   if (symbol.startsWith('BTC/USDT')) {
-  //     const market = binance.markets[symbol];
-  //     console.log(symbol, market['future']);
-  //   }
-  // }
 }
-
 
 main();
