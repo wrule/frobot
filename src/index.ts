@@ -11,16 +11,12 @@ async function main() {
       defaultType: 'future',
     },
   });
-  const a = await binance.publicGetTime();
-  console.log(a);
-  const ticker = await binance.fetchTicker('BTC/USDT');
-  setInterval(() => {
-    console.log(ticker.close);
-  }, 1000);
-
-  binance.markets = await binance.loadMarkets(true);
-  const k = await binance.fetchBalance();
-  console.log(k);
+  const result = await binance.fetchMarkets();
+  result.forEach((item) => {
+    if (item.symbol.includes('BTC')) {
+      console.log(item.symbol);
+    }
+  });
 }
 
 main();
