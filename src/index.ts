@@ -27,7 +27,12 @@ async function main() {
 
   async function loop_ticker() {
     const ticker = await binance.fetchTicker('BTC/USDT');
-    console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss'), ticker.close);
+    console.log(
+      moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
+      ticker.close,
+      moment(new Date(ticker.datetime)).format('YYYY-MM-DD HH:mm:ss'),
+      moment(new Date(ticker.timestamp)).format('YYYY-MM-DD HH:mm:ss'),
+    );
     setTimeout(() => {
       loop_ticker();
     }, 1000);
