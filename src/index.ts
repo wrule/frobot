@@ -11,12 +11,12 @@ async function main() {
       defaultType: 'future',
     },
   });
-  const result = await binance.fetchMarkets();
-  result.forEach((item) => {
-    if (item.symbol.includes('BTC')) {
-      console.log(item.symbol);
+  await binance.loadMarkets();
+  for (let key in binance.markets) {
+    if (key.includes('BTC')) {
+      console.log(key);
     }
-  });
+  }
 }
 
 main();
