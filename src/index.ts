@@ -14,7 +14,9 @@ async function main() {
   const a = await binance.publicGetTime();
   console.log(a);
   const ticker = await binance.fetchTicker('BTC/USDT');
-  console.log(ticker.close);
+  setInterval(() => {
+    console.log(ticker.close);
+  }, 1000);
 
   binance.markets = await binance.loadMarkets(true);
   const k = await binance.fetchBalance();
