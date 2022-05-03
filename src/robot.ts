@@ -1,6 +1,6 @@
 
 export
-interface IRobot {
+interface IConfig {
   /**
    * 交易币种
    */
@@ -49,4 +49,23 @@ interface IRobot {
    * 趋势做单
    */
   trend_time: string;
+}
+
+export
+class Robot {
+  public constructor(private readonly config: IConfig) { }
+
+  /**
+   * 开启机器人
+   */
+  public Start() {
+
+  }
+
+  /**
+   * 停止机器人
+   */
+  public Stop() {
+
+  }
 }
