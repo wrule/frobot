@@ -11,6 +11,7 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "@types/node": "^17.0.31",
     "axios": "^0.27.2",
     "ccxt": "^1.81.17",
     "moment": "^2.29.3"

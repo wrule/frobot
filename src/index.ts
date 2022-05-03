@@ -2,6 +2,7 @@ import ccxt from 'ccxt';
 // @ts-ignore
 import Secret from '../.secret.json';
 import moment from 'moment';
+import fs from 'fs';
 
 async function main() {
   const binance = new ccxt.binance({
@@ -37,6 +38,17 @@ async function main() {
     setTimeout(() => {
       loop_ticker();
     }, 1000);
+    fs.appendFileSync('log.csv', `${
+      moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
+    },${
+      ticker.close
+    },${
+      ticker.last
+    },${
+      moment(new Date(ticker.datetime)).format('YYYY-MM-DD HH:mm:ss')
+    },${
+      moment(new Date(ticker.timestamp)).format('YYYY-MM-DD HH:mm:ss')
+    }\n`);
   }
 
   loop_ticker();
