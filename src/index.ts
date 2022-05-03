@@ -30,6 +30,7 @@ async function main() {
     console.log(
       moment(new Date()).format('YYYY-MM-DD HH:mm:ss'),
       ticker.close,
+      ticker.last,
       moment(new Date(ticker.datetime)).format('YYYY-MM-DD HH:mm:ss'),
       moment(new Date(ticker.timestamp)).format('YYYY-MM-DD HH:mm:ss'),
     );
