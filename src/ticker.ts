@@ -5,6 +5,7 @@ class Ticker {
   public constructor(
     private readonly exchange: ccxt.binance,
     private readonly symbol: string,
+    private readonly callback?: (ticker: ccxt.Ticker) => void,
     private readonly interval: number = 1000,
   ) { }
 
@@ -14,7 +15,11 @@ class Ticker {
     clearTimeout(this.timer);
     try {
       const result = await this.exchange.fetchTicker(this.symbol);
-      console.log(result.close, Number(new Date(result.datetime)));
+      if (this.callback) {
+        this.callback(result);
+      } else {
+        console.log(result.datetime, result.close);
+      }
     } catch (e) {
       console.error(e);
     } finally {
