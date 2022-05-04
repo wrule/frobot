@@ -71,6 +71,18 @@ async function main() {
       since,
       1000,
     );
+    if (list.length > 0) {
+      result.forEach((item, index) => {
+        if (index > 0) {
+          list.push(item);
+        } else {
+          list[list.length - 1] = item;
+        }
+      });
+    } else {
+      list.push(...result);
+    }
+    console.log(list.length);
     setTimeout(() => {
       let next_time = undefined;
       if (list.length > 0) {
