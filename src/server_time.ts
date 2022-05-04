@@ -25,4 +25,12 @@ class ServerTime {
   public UnSubscribe(name: string) {
     this.subscriber.delete(name);
   }
+
+  public get Subscriber() {
+    return this.subscriber;
+  }
+
+  public get SubscriberNames() {
+    return Array.from(this.subscriber.keys());
+  }
 }
