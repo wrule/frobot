@@ -60,7 +60,27 @@ async function main() {
     }
   }
 
-  loop_ticker();
+  // loop_ticker();
+
+  const list: any[] = [];
+
+  async function kline(symbol: string, timeframe: string, since?: number) {
+    const result = await binance.fetchOHLCV(
+      symbol,
+      timeframe,
+      since,
+      1000,
+    );
+    setTimeout(() => {
+      let next_time = undefined;
+      if (list.length > 0) {
+        next_time = list[list.length - 1][0];
+      }
+      kline(symbol, timeframe, next_time);
+    }, 1000);
+  }
+
+  kline('BTC/USDT', '1m');
 }
 
 main();
