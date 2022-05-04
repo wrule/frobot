@@ -12,11 +12,16 @@ class Ticker {
 
   private async loopQuery() {
     clearTimeout(this.timer);
-    const result = await this.exchange.fetchTicker(this.symbol);
-    console.log(result.close, Number(new Date(result.datetime)));
-    this.timer = setTimeout(() => {
-      this.loopQuery();
-    }, this.interval);
+    try {
+      const result = await this.exchange.fetchTicker(this.symbol);
+      console.log(result.close, Number(new Date(result.datetime)));
+    } catch (e) {
+      console.error(e);
+    } finally {
+      this.timer = setTimeout(() => {
+        this.loopQuery();
+      }, this.interval);
+    }
   }
 
   public Start() {
