@@ -27,6 +27,10 @@ async function main() {
   // console.log(result);
 
   async function loop_ticker() {
+    // const list = await binance.fetchOHLCV('BTC/USDT', '15m', 1651640400000, 5);
+    // console.log(list);
+
+    // return;
     try {
       const ticker = await binance.fetchTicker('BTC/USDT');
       console.log(
