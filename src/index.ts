@@ -3,7 +3,7 @@ import ccxt from 'ccxt';
 import Secret from '../.secret.json';
 import moment from 'moment';
 import fs from 'fs';
-import { Ticker } from './ticker';
+import { TickerWatcher } from './ticker_watcher';
 
 async function main() {
   const binance = new ccxt.binance({
@@ -95,7 +95,7 @@ async function main() {
 
   // kline('BTC/USDT', '1m');
 
-  const tk = new Ticker(binance, 'BTC/USDT', undefined, 5000);
+  const tk = new TickerWatcher(binance, 'BTC/USDT', undefined, 5000);
   tk.Start();
 }
 

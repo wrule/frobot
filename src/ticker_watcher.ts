@@ -1,7 +1,7 @@
 import ccxt from 'ccxt';
 
 export
-class Ticker {
+class TickerWatcher {
   public constructor(
     private readonly exchange: ccxt.binance,
     private readonly symbol: string,
