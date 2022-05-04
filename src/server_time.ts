@@ -14,4 +14,15 @@ class ServerTime {
       this.time = time;
     }
   }
+
+  public Subscribe(
+    callback: (time: number, old_time: number) => void,
+    name: string,
+  ) {
+    this.subscriber.set(name, callback);
+  }
+
+  public UnSubscribe(name: string) {
+    this.subscriber.delete(name);
+  }
 }
