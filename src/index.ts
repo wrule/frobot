@@ -95,7 +95,7 @@ async function main() {
 
   // kline('BTC/USDT', '1m');
 
-  const tk = new TickerWatcher(binance, 'BTC/USDT', undefined, 5000);
+  const tk = new TickerWatcher(binance, 'BTC/USDT', undefined, 1000);
   tk.Start();
 }
 
