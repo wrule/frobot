@@ -1,3 +1,4 @@
+import uuid from 'uuid';
 
 export
 class ServerTime {
@@ -17,9 +18,11 @@ class ServerTime {
 
   public Subscribe(
     callback: (time: number, old_time: number) => void,
-    name: string,
+    name?: string,
   ) {
-    this.subscriber.set(name, callback);
+    const result = name || uuid.v4();
+    this.subscriber.set(result, callback);
+    return result;
   }
 
   public UnSubscribe(name: string) {
