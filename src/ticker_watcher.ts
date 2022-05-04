@@ -1,12 +1,12 @@
-import ccxt from 'ccxt';
+import ccxt, { Ticker } from 'ccxt';
 
 export
 class TickerWatcher {
   public constructor(
     private readonly exchange: ccxt.binance,
     private readonly symbol: string,
-    private readonly callback?: (ticker: ccxt.Ticker) => void,
-    private readonly interval: number = 1000,
+    private readonly callback?: (ticker: Ticker) => void,
+    private readonly interval: number = 5000,
   ) { }
 
   private timer: any = -1;
