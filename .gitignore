@@ -106,3 +106,4 @@ dist
 .secret.json
 yarn.lock
 log.csv
+*.csv

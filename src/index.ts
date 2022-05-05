@@ -95,7 +95,19 @@ async function main() {
 
   // kline('BTC/USDT', '1m');
 
-  const tk = new TickerWatcher(binance, 'BTC/USDT', undefined, 1000);
+  let count = 0;
+  const tk = new TickerWatcher(binance, 'BTC/USDT', (ticker) => {
+    console.log(ticker.datetime, ticker.close);
+    const line = `${
+      Number(new Date())
+    },${
+      Number(new Date(ticker.datetime))
+    },${
+      ticker.close
+    }\n`;
+    fs.appendFileSync(`log-${Math.floor(count / 10) + 1}.csv`, line);
+    count++;
+  }, 1000);
   tk.Start();
 }
 
