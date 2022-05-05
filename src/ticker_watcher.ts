@@ -1,4 +1,5 @@
 import ccxt, { Ticker } from 'ccxt';
+import fs from 'fs';
 
 export
 class TickerWatcher {
@@ -22,6 +23,7 @@ class TickerWatcher {
       }
     } catch (e) {
       console.error(e);
+      fs.appendFileSync(`err.csv`, `${Number(new Date())}\n${e}\n`);
     } finally {
       this.timer = setTimeout(() => {
         this.loopQuery();
