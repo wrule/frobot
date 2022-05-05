@@ -105,7 +105,7 @@ async function main() {
     },${
       ticker.close
     }\n`;
-    fs.appendFileSync(`log-${Math.floor(count / 100000) + 1}.csv`, line);
+    fs.appendFileSync(`log-${Math.floor(count / 10000000) + 1}.csv`, line);
     count++;
   }, 1000);
   tk.Start();
