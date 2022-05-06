@@ -66,7 +66,7 @@ class KLineWatcher {
         if (this.callback) {
           this.callback(result);
         } else {
-          console.log(result.length);
+          console.log(this.klines.length);
         }
       }
     } catch (e) {
