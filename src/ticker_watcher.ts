@@ -1,5 +1,6 @@
 import ccxt, { Ticker } from 'ccxt';
 import fs from 'fs';
+import moment from 'moment';
 
 export
 class TickerWatcher {
@@ -23,7 +24,15 @@ class TickerWatcher {
       }
     } catch (e) {
       console.error(e);
-      fs.appendFileSync(`err.csv`, `${Number(new Date())}\n${e}\n`);
+      fs.appendFileSync(
+        `err-tk.log`,
+        `[${
+          moment().format('YYYY-MM-DD HH:mm:ss:SSS')
+        }][${
+          this.symbol
+        }-${
+          this.interval
+        }]:\n${e}\n`);
     } finally {
       this.timer = setTimeout(() => {
         this.loopQuery();
