@@ -2,15 +2,16 @@
 import ccxt, { Ticker } from 'ccxt';
 import fs from 'fs';
 import moment from 'moment';
-import { ETimeFrame } from './timeframe';
+import { ETimeFrame, TimeFrame } from './timeframe';
 
 export
 class KLineWatcher {
   public constructor(
     private readonly exchange: ccxt.binance,
     private readonly symbol: string,
+    private readonly timeframe: ETimeFrame,
     private readonly callback?: (klines: any[]) => void,
-    private readonly interval: ETimeFrame = ETimeFrame._15m,
+    private readonly interval = 1000,
   ) { }
 
   private timer: any = -1;
@@ -21,7 +22,7 @@ class KLineWatcher {
     try {
       const result = await this.exchange.fetchOHLCV(
         this.symbol,
-        '1h',
+        TimeFrame(this.timeframe),
         this.since,
         1000,
       );
