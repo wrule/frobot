@@ -4,6 +4,7 @@ import Secret from '../.secret.json';
 import moment from 'moment';
 import fs from 'fs';
 import { TickerWatcher } from './ticker_watcher';
+import { ETimeFrame, TimeFrame } from './timeframe';
 
 async function main() {
   const binance = new ccxt.binance({
@@ -97,7 +98,7 @@ async function main() {
 
   let count = 0;
   const tk = new TickerWatcher(binance, 'BTC/USDT', undefined, 1000);
-  tk.Start();
+  // tk.Start();
 }
 
 main();

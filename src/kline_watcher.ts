@@ -14,8 +14,29 @@ class KLineWatcher {
   ) { }
 
   private timer: any = -1;
+  private since?: number = undefined;
 
   private async loopQuery() {
+    clearTimeout(this.timer);
+    try {
+      const result = await this.exchange.fetchOHLCV(
+        this.symbol,
+        '1h',
+        this.since,
+        1000,
+      );
+      if (this.callback) {
+        this.callback(result);
+      } else {
+        console.log(result.length);
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      this.timer = setTimeout(() => {
+        this.loopQuery();
+      }, this.interval);
+    }
   }
 
   public Start() {

@@ -14,3 +14,8 @@ enum ETimeFrame {
   _12h = 12 * (3600 * 1000),
   _1d = 24 * (3600 * 1000),
 }
+
+export
+function TimeFrame(timeframe: ETimeFrame) {
+  return ETimeFrame[timeframe].replace('_', '');
+}
