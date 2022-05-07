@@ -15,6 +15,9 @@ interface KLine {
 }
 
 export
+type KLineCallback = (hist: KLine[], cur: KLine) => void;
+
+export
 function ArrayToKLine(array: number[]): KLine {
   return {
     time: moment(new Date(array[0])),

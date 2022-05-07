@@ -1,7 +1,7 @@
 
 import ccxt, { Ticker } from 'ccxt';
-import { KLineWatcher } from './kline_watcher';
-import { TickerWatcher } from './ticker_watcher';
+import { KLine, KLineWatcher, KLineCallback } from './kline_watcher';
+import { TickerWatcher, TickerCallback } from './ticker_watcher';
 import { ETimeFrame } from './timeframe';
 
 export
@@ -43,30 +43,44 @@ class DataWorker {
 }
 
 export
+class TickerStore {
+
+}
+
+export
 class DataStore {
-  private tickerStore = new Map<string, TickerWatcher>();
-  private klineStore = new Map<string, KLineWatcher>();
+  private tickerWatcherMap = new Map<string, TickerWatcher>();
+  private tickerCallbacksMap = new Map<string, TickerCallback[]>();
+  private tickerSubkeysMap = new Map<string, string[]>();
+  private klineWatcherMap = new Map<string, KLineWatcher>();
+  private klineCallbacksMap = new Map<string, KLineCallback[]>();
 
   public Start() {
-    Array.from(this.tickerStore.values()).forEach((watcher) => {
+    Array.from(this.tickerWatcherMap.values()).forEach((watcher) => {
       watcher.Start();
     });
   }
 
   public Stop() {
-    Array.from(this.tickerStore.values()).forEach((watcher) => {
+    Array.from(this.tickerWatcherMap.values()).forEach((watcher) => {
       watcher.Stop();
     });
-    Array.from(this.klineStore.values()).forEach((watcher) => {
+    Array.from(this.klineWatcherMap.values()).forEach((watcher) => {
       watcher.Stop();
     });
   }
 
-  public Subscribe() {
+  public Subscribe(
+    symbol: string,
+    timeframe: string,
+    tickerCallback: (ticker: Ticker) => void,
+    klineCallback: (hist: KLine[], cur: KLine) => void,
+    name?: string,
+  ) {
 
   }
 
-  public Unsubscribe() {
+  public Unsubscribe(name: string) {
 
   }
 }

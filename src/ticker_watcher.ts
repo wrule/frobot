@@ -3,6 +3,9 @@ import fs from 'fs';
 import moment from 'moment';
 
 export
+type TickerCallback = (ticker: Ticker) => void;
+
+export
 class TickerWatcher {
   public constructor(
     private readonly exchange: ccxt.binance,
