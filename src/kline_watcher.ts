@@ -70,7 +70,18 @@ class KLineWatcher {
         }
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
+      fs.appendFileSync(
+        `err-kl.log`,
+        `[${
+          moment().format('YYYY-MM-DD HH:mm:ss:SSS')
+        }][${
+          this.symbol
+        }-${
+          TimeFrame(this.timeframe)
+        }-${
+          this.interval
+        }]:\n${e}\n`);
     } finally {
       this.timer = setTimeout(() => {
         this.loopQuery();
