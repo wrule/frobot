@@ -3,6 +3,7 @@ import ccxt, { Ticker } from 'ccxt';
 import { KLine, KLineWatcher, KLineCallback } from './kline_watcher';
 import { TickerWatcher, TickerCallback } from './ticker_watcher';
 import { ETimeFrame } from './timeframe';
+import uuid from 'uuid';
 
 export
 class DataWorker {
@@ -49,6 +50,10 @@ class TickerStore {
 
 export
 class DataStore {
+  public constructor(
+    private readonly exchange: ccxt.binance,
+  ) { }
+
   private tickerWatcherMap = new Map<string, TickerWatcher>();
   private tickerCallbacksMap = new Map<string, Map<string, TickerCallback>>();
   private tickerSubkeysMap = new Map<string, string[]>();
@@ -77,7 +82,18 @@ class DataStore {
     klineCallback: (hist: KLine[], cur: KLine) => void,
     name?: string,
   ) {
+    const cName = name || uuid.v4();
+    if (!this.tickerWatcherMap.has(symbol)) {
+      this.tickerWatcherMap.set(symbol, new TickerWatcher(
+        this.exchange,
+        symbol,
+        (ticker) => {
 
+        },
+        1000,
+      ));
+    }
+    return cName;
   }
 
   public Unsubscribe(name: string) {
