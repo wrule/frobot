@@ -32,7 +32,7 @@ class KLineWatcher {
     private readonly exchange: ccxt.binance,
     private readonly symbol: string,
     private readonly timeframe: ETimeFrame,
-    private readonly callback?: (klines: KLine[]) => void,
+    private readonly callback?: (hist: KLine[], cur: KLine) => void,
     private readonly interval = 1000,
   ) { }
 
@@ -63,10 +63,12 @@ class KLineWatcher {
           this.klines = result.map((item) => ArrayToKLine(item));
         }
         this.since = result[result.length - 1][0];
+        const hist = this.klines.slice(0, this.klines.length - 1);
+        const cur = this.klines[this.klines.length - 1];
         if (this.callback) {
-          this.callback(this.klines);
+          this.callback(hist, cur);
         } else {
-          console.log(this.klines.length);
+          console.log(hist.length, cur.close);
         }
       }
     } catch (e) {
