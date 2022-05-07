@@ -32,7 +32,7 @@ class KLineWatcher {
     private readonly exchange: ccxt.binance,
     private readonly symbol: string,
     private readonly timeframe: ETimeFrame,
-    private readonly callback?: (klines: any[]) => void,
+    private readonly callback?: (klines: KLine[]) => void,
     private readonly interval = 1000,
   ) { }
 
@@ -64,7 +64,7 @@ class KLineWatcher {
         }
         this.since = result[result.length - 1][0];
         if (this.callback) {
-          this.callback(result);
+          this.callback(this.klines);
         } else {
           console.log(this.klines.length);
         }
@@ -91,6 +91,7 @@ class KLineWatcher {
 
   public Start() {
     this.since = undefined;
+    this.klines = [];
     this.loopQuery();
   }
 
