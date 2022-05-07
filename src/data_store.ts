@@ -16,9 +16,6 @@ class DataWorker {
       this.symbol,
       (ticker) => {
         const remainder = ticker.timestamp % Number(this.timeframe);
-        if (remainder > 10 * 1000) {
-          console.log('停止');
-        }
         console.log('tk', ticker.timestamp, ticker.close);
       },
       1000,
