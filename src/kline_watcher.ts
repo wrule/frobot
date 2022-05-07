@@ -40,6 +40,9 @@ class KLineWatcher {
   private since?: number = undefined;
   private klines: KLine[] = [];
 
+  private readonly fetchSize = 1001;
+  private readonly maxSize = 2001;
+
   private async loopQuery() {
     clearTimeout(this.timer);
     try {
@@ -47,7 +50,7 @@ class KLineWatcher {
         this.symbol,
         TimeFrame(this.timeframe),
         this.since,
-        1000,
+        this.fetchSize,
       );
       if (result.length > 0) {
         if (this.klines.length > 0) {
@@ -63,6 +66,10 @@ class KLineWatcher {
           this.klines = result.map((item) => ArrayToKLine(item));
         }
         this.since = result[result.length - 1][0];
+        const diff = this.klines.length - this.maxSize;
+        if (diff > 0) {
+          this.klines.splice(0, diff);
+        }
         const hist = this.klines.slice(0, this.klines.length - 1);
         const cur = this.klines[this.klines.length - 1];
         if (this.callback) {
