@@ -6,6 +6,7 @@ import fs from 'fs';
 import { TickerWatcher } from './ticker_watcher';
 import { ETimeFrame, TimeFrame } from './timeframe';
 import { KLineWatcher } from './kline_watcher';
+import { DataWorker } from './data_store';
 
 async function main() {
   const binance = new ccxt.binance({
@@ -104,7 +105,10 @@ async function main() {
   const k = new KLineWatcher(binance, 'BTC/USDT', ETimeFrame._1m);
   // k.Start();
 
-  console.log(ETimeFrame);
+  // console.log(ETimeFrame);
+
+  const w = new DataWorker(binance, 'BTC/USDT', ETimeFrame._3m);
+  // w.Start();
 }
 
 main();
