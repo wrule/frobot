@@ -102,7 +102,9 @@ async function main() {
   // tk.Start();
 
   const k = new KLineWatcher(binance, 'BTC/USDT', ETimeFrame._1m);
-  k.Start();
+  // k.Start();
+
+  console.log(ETimeFrame);
 }
 
 main();
