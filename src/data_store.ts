@@ -50,10 +50,10 @@ class TickerStore {
 export
 class DataStore {
   private tickerWatcherMap = new Map<string, TickerWatcher>();
-  private tickerCallbacksMap = new Map<string, TickerCallback[]>();
+  private tickerCallbacksMap = new Map<string, Map<string, TickerCallback>>();
   private tickerSubkeysMap = new Map<string, string[]>();
   private klineWatcherMap = new Map<string, KLineWatcher>();
-  private klineCallbacksMap = new Map<string, KLineCallback[]>();
+  private klineCallbacksMap = new Map<string, Map<string, KLineCallback>>();
 
   public Start() {
     Array.from(this.tickerWatcherMap.values()).forEach((watcher) => {
