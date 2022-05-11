@@ -7,7 +7,7 @@ import { TickerWatcher } from './ticker_watcher';
 import { ETimeFrame, TimeFrame } from './timeframe';
 import { KLineWatcher } from './kline_watcher';
 import { DataWorker } from './data_store';
-import { load_csv } from '@wrule/ohlcv-utils';
+import { load_csv, csv_dump_json } from '@wrule/ohlcv-utils';
 
 async function main() {
   const binance = new ccxt.binance({
@@ -111,8 +111,9 @@ async function main() {
   const w = new DataWorker(binance, 'BTC/USDT', ETimeFrame._3m);
   // w.Start();
 
-  const a = load_csv('BTCUSDT.csv');
-  console.log(a[0]);
+  // const a = load_csv('BTCUSDT.csv');
+  // console.log(a[0]);
+  csv_dump_json('BTCUSDT.csv')
 }
 
 main();
