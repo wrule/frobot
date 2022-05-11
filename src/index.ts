@@ -8,8 +8,9 @@ import { ETimeFrame, TimeFrame } from './timeframe';
 import { KLineWatcher } from './kline_watcher';
 import { DataWorker } from './data_store';
 import { load_csv, csv_dump_json } from '@wrule/ohlcv-utils';
+import axios from 'axios';
 
-async function main() {
+async function main1() {
   const binance = new ccxt.binance({
     // apiKey: Secret.API_KEY,
     // secret: Secret.SECRET_KEY,
@@ -114,6 +115,44 @@ async function main() {
   // const a = load_csv('BTCUSDT.csv');
   // console.log(a[0]);
   csv_dump_json('BTCUSDT.csv')
+}
+
+const AuthToken = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcHAuYmlodW8zMzMucGx1c1wvYXBpXC9sb2dpbiIsImlhdCI6MTY1MTU4Nzc0MCwibmJmIjoxNjUxNTg3NzQwLCJqdGkiOiJpUzBiV2d5bVNJVmVMQ2hnIiwic3ViIjozODc3LCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.odueTJaEziS_kjTytc8jNQWpZ3UZ0qKUhF3pXK3Clw8';
+
+async function getAllLog(auth: string) {
+  const result: any[] = [];
+  let page = 1;
+  let has_next = true;
+  do {
+    const rsp = await axios.get(
+      'http://app.bihuo333.plus/api/tradingpairs_log', {
+        params: {
+          page,
+          type: 0,
+          tradingpairs: 'btcusdt',
+          agree: '2',
+          from: '1',
+          id: 30512,
+        },
+        headers: {
+          Authorization: AuthToken,
+        },
+      },
+    );
+    if (rsp.status === 200 && rsp.data.code === 200) {
+      const data = rsp.data.data;
+      result.push(...(data.data || []));
+      has_next = data.next_page_url != null;
+      page++;
+    }
+  } while (has_next);
+  return result;
+}
+
+async function main() {
+  const list = await getAllLog(AuthToken);
+  console.log(list.length);
+  fs.writeFileSync('log.json', JSON.stringify(list, null, 2));
 }
 
 main();
