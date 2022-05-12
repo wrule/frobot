@@ -150,9 +150,27 @@ async function getAllLog(auth: string) {
 }
 
 async function main() {
-  const list = await getAllLog(AuthToken);
-  console.log(list.length);
-  fs.writeFileSync('log.json', JSON.stringify(list, null, 2));
+  // const list = await getAllLog(AuthToken);
+  // console.log(list.length);
+  // fs.writeFileSync('log.json', JSON.stringify(list, null, 2));
+  const jsonText = fs.readFileSync('log.json', 'utf-8');
+  const list: any[] = JSON.parse(jsonText);
+  list.reverse();
+  let win = 0, fail = 0;
+  list.forEach((item, index) => {
+    if (index > 0) {
+      if (item.type === 'sell-market') {
+        const prevItem = list[index - 1];
+        if (prevItem.type === 'buy-market' && prevItem.bucang_cishu === '首单') {
+          win++;
+        } else {
+          fail++;
+        }
+      }
+    }
+  });
+  console.log(win, fail);
+  console.log(win / (win + fail) * 100);
 }
 
 main();
