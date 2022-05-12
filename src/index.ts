@@ -132,7 +132,7 @@ async function getAllLog(auth: string) {
           tradingpairs: 'btcusdt',
           agree: '2',
           from: '1',
-          id: 30512,
+          id: 30678, // 30512 是多
         },
         headers: {
           Authorization: AuthToken,
